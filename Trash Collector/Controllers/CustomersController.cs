@@ -40,13 +40,9 @@ namespace Trash_Collector.Controllers
         }
 
         // GET: Customers/Create
-        public IActionResult Create(Customer customer)
+        public IActionResult Create()
         {
-            var userID = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            customer.IdentityUserId = userID;
-            _context.Add(customer);
-            _context.SaveChanges();
-            return View("Index");
+            return View();
         }
 
         // POST: Customers/Create
@@ -54,16 +50,13 @@ namespace Trash_Collector.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,FirstName,LastName,Address,TrashDay,Balance,IdentityUserId")] Customer customer)
+        public IActionResult Create([Bind("ID,FirstName,LastName,Address,TrashDay,Balance,IdentityUserId")] Customer customer)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Add(customer);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", customer.IdentityUserId);
-            return View(customer);
+            var userID = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            customer.IdentityUserId = userID;
+            _context.Add(customer);
+            _context.SaveChanges();
+            return View("Index");
         }
 
         // GET: Customers/Edit/5
@@ -80,7 +73,7 @@ namespace Trash_Collector.Controllers
                 return NotFound();
             }
             ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", customer.IdentityUserId);
-            return View(customer);
+            return View(customer.Address, customer.TrashDay);
         }
 
         // POST: Customers/Edit/5
@@ -88,35 +81,11 @@ namespace Trash_Collector.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,FirstName,LastName,Address,TrashDay,Balance,IdentityUserId")] Customer customer)
+        public IActionResult Edit(int id, [Bind("ID,FirstName,LastName,Address,TrashDay,Balance,IdentityUserId")] Customer customer)
         {
-            if (id != customer.ID)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(customer);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!CustomerExists(customer.ID))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", customer.IdentityUserId);
-            return View(customer);
+            _context.Update(customer);
+            _context.SaveChanges();
+            return View("Index");
         }
 
         // GET: Customers/Delete/5
