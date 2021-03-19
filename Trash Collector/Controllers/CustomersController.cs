@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -20,36 +21,32 @@ namespace Trash_Collector.Controllers
         }
 
         // GET: Customers
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            var applicationDbContext = _context.Customers.Include(c => c.IdentityUser);
-            return View(await applicationDbContext.ToListAsync());
+            var userID = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var customer = _context.Customers.Where(c => c.IdentityUserId == userID).FirstOrDefault();
+            return View(customer);
+            // var customers = _context.Customers.Include(c => c.IdentityUser);
+            // return View(customers);
+            // var applicationDbContext = _context.Customers.Include(c => c.IdentityUser);
+            // return View(await applicationDbContext.ToListAsync());
         }
 
         // GET: Customers/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public IActionResult Details(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var customer = await _context.Customers
-                .Include(c => c.IdentityUser)
-                .FirstOrDefaultAsync(m => m.ID == id);
-            if (customer == null)
-            {
-                return NotFound();
-            }
-
+            var customer = _context.Customers.Find(id);
             return View(customer);
         }
 
         // GET: Customers/Create
-        public IActionResult Create()
+        public IActionResult Create(Customer customer)
         {
-            ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id");
-            return View();
+            var userID = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            customer.IdentityUserId = userID;
+            _context.Add(customer);
+            _context.SaveChanges();
+            return View("Index");
         }
 
         // POST: Customers/Create

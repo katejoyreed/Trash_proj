@@ -10,8 +10,8 @@ namespace Trash_Collector.Data
 {
     public class ApplicationDbContext : IdentityDbContext
     {
-        DbSet<Customer> Customers { get; set; }
-        DbSet<Employee> Employees { get; set; }
+        public DbSet<Customer> Customers { get; set; }
+        public DbSet<Employee> Employees { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
