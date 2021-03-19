@@ -11,14 +11,16 @@ namespace Trash_Collector.Models
     public class Employee
     {
         [Key]
-        public int ID;
+        public int empID { get; set; }
 
         [Display(Name = "First Name")]
-        public string FirstName;
+        public string FirstName { get; set; }
+
         [Display(Name = "Last Name")]
-        public string LastName;
+        public string LastName { get; set; }
+
         [Display(Name = "Zip Code")]
-        public int ZipCode;
+        public int ZipCode { get; set; }
         
 
         [ForeignKey("IdentityUser")]

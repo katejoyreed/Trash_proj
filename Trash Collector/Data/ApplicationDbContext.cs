@@ -4,11 +4,15 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Trash_Collector.Models;
 
 namespace Trash_Collector.Data
 {
     public class ApplicationDbContext : IdentityDbContext
     {
+        DbSet<Customer> Customers { get; set; }
+        DbSet<Employee> Employees { get; set; }
+
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {

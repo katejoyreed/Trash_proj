@@ -11,17 +11,22 @@ namespace Trash_Collector.Models
     public class Customer
     {
         [Key]
-        public int ID;
+
+        public int ID { get; set; }
 
         [Display(Name = "First Name")]
-        public string FirstName;
+        public string FirstName { get; set; }
+
         [Display(Name = "Last Name")]
-        public string LastName;
-        public string Address;
+        public string LastName { get; set; }
+
+        public string Address { get; set; }
+
         [Display(Name = "Trash Day")]
-        public DayOfWeek TrashDay;
+        public DayOfWeek TrashDay { get; set; }
+
         [Display(Name = "Balance Due")]
-        public int Balance;
+        public int Balance { get; set; }
 
         [ForeignKey("IdentityUser")]
         public string IdentityUserId { get; set; }
