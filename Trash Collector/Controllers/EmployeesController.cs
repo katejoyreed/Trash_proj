@@ -22,8 +22,8 @@ namespace Trash_Collector.Controllers
         // GET: Employees
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Employees.Include(e => e.IdentityUser);
-            return View(await applicationDbContext.ToListAsync());
+            var employees = _context.Employees.Include(e => e.IdentityUser);
+            return View(employees);
         }
 
         // GET: Employees/Details/5
