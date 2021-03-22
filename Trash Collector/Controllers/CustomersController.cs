@@ -73,7 +73,7 @@ namespace Trash_Collector.Controllers
                 return NotFound();
             }
             ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", customer.IdentityUserId);
-            return View(customer.Address, customer.TrashDay);
+            return ViewBag(customer.Address, customer.TrashDay, customer.BonusDay);
         }
 
         // POST: Customers/Edit/5
@@ -104,7 +104,7 @@ namespace Trash_Collector.Controllers
                 return NotFound();
             }
 
-            return View(customer);
+            return View(customer.BonusDay);
         }
 
         // POST: Customers/Delete/5
@@ -113,7 +113,7 @@ namespace Trash_Collector.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var customer = await _context.Customers.FindAsync(id);
-            _context.Customers.Remove(customer);
+            customer.BonusDay = null;
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

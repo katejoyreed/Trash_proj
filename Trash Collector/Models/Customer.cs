@@ -28,6 +28,9 @@ namespace Trash_Collector.Models
         [Display(Name = "Balance Due")]
         public int Balance { get; set; }
 
+        [Display(Name = "Additional Collection Day")]
+        public DayOfWeek ? BonusDay { get; set; }
+
         [ForeignKey("IdentityUser")]
         public string IdentityUserId { get; set; }
         public IdentityUser IdentityUser { get; set; }
