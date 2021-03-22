@@ -23,10 +23,13 @@ namespace Trash_Collector.Controllers
         // GET: Customers
         public IActionResult Index()
         {
-            
-             var customers = _context.Customers.Include(c => c.IdentityUser);
-             return View(customers);
-             
+            var userID = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var customer = _context.Customers.Where(c => c.IdentityUserId == userID).FirstOrDefault();
+            return View(customer);
+            // var customers = _context.Customers.Include(c => c.IdentityUser);
+            // return View(customers);
+            // var applicationDbContext = _context.Customers.Include(c => c.IdentityUser);
+            // return View(await applicationDbContext.ToListAsync());
         }
 
         // GET: Customers/Details/5

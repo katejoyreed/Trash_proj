@@ -22,6 +22,8 @@ namespace Trash_Collector.Models
 
         public string Address { get; set; }
 
+        public int Zip { get; set; }
+
         [Display(Name = "Trash Day")]
         public DayOfWeek TrashDay { get; set; }
 
