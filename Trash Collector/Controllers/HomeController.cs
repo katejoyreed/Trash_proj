@@ -9,8 +9,10 @@ using Trash_Collector.Models;
 
 namespace Trash_Collector.Controllers
 {
+    
     public class HomeController : Controller
     {
+
         private readonly ILogger<HomeController> _logger;
 
         public HomeController(ILogger<HomeController> logger)

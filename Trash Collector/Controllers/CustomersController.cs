@@ -13,6 +13,7 @@ using Trash_Collector.Models;
 namespace Trash_Collector.Controllers
 {
     [Authorize(Roles = "Customer")]
+    
     public class CustomersController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -38,12 +39,13 @@ namespace Trash_Collector.Controllers
         public IActionResult Details(int? id)
         {
             var customer = _context.Customers.Find(id);
-            return View(customer);
+            return View(customer.Balance);
         }
 
         // GET: Customers/Create
         public IActionResult Create()
         {
+            ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id");
             return View();
         }
 
@@ -52,13 +54,21 @@ namespace Trash_Collector.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create([Bind("ID,FirstName,LastName,Address,TrashDay,Balance,IdentityUserId")] Customer customer)
+        public async Task<IActionResult> CreateAsync([Bind("ID,FirstName,LastName,Address,TrashDay,Balance,IdentityUserId")] Customer customer)
         {
-            var userID = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            customer.IdentityUserId = userID;
-            _context.Add(customer);
-            _context.SaveChanges();
-            return View("Index");
+            if (ModelState.IsValid)
+            {
+                _context.Add(customer);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", customer.IdentityUserId);
+            return View(customer);
+            // var userID = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            //customer.IdentityUserId = userID;
+            // _context.Add(customer);
+            // _context.SaveChanges();
+            // return View("Index");
         }
 
         // GET: Customers/Edit/5

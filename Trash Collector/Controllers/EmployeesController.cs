@@ -13,6 +13,7 @@ using Trash_Collector.Models;
 namespace Trash_Collector.Controllers
 {
     [Authorize(Roles = "Employee")]
+    
     public class EmployeesController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -83,13 +84,13 @@ namespace Trash_Collector.Controllers
                 return NotFound();
             }
 
-            var employee = await _context.Employees.FindAsync(id);
-            if (employee == null)
+            var customer = await _context.Customers.FindAsync(id);
+            if (customer == null)
             {
                 return NotFound();
             }
-            ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", employee.IdentityUserId);
-            return View(employee);
+            
+            return View(customer.Balance);
         }
 
         // POST: Employees/Edit/5
@@ -97,9 +98,9 @@ namespace Trash_Collector.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("empID,FirstName,LastName,ZipCode,IdentityUserId")] Employee employee)
+        public async Task<IActionResult> Edit(int id, Customer customer)
         {
-            if (id != employee.empID)
+            if (id != customer.ID)
             {
                 return NotFound();
             }
@@ -108,12 +109,12 @@ namespace Trash_Collector.Controllers
             {
                 try
                 {
-                    _context.Update(employee);
+                    _context.Update(customer.Balance);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!EmployeeExists(employee.empID))
+                    if (!EmployeeExists(customer.ID))
                     {
                         return NotFound();
                     }
@@ -124,8 +125,8 @@ namespace Trash_Collector.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", employee.IdentityUserId);
-            return View(employee);
+            
+            return View("Index");
         }
 
         // GET: Employees/Delete/5
