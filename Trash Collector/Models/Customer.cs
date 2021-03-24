@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -25,8 +26,9 @@ namespace Trash_Collector.Models
         public int Zip { get; set; }
 
         [Display(Name = "Trash Day")]
-        public DayOfWeek TrashDay { get; set; }
-
+        public  DayOfWeek TrashDay { get; set; }
+         
+        
         [Display(Name = "Balance Due")]
         public int Balance { get; set; }
 

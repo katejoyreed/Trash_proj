@@ -58,11 +58,12 @@ namespace Trash_Collector.Controllers
         {
             if (ModelState.IsValid)
             {
+                
                 _context.Add(customer);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", customer.IdentityUserId);
+           
             return View(customer);
             // var userID = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             //customer.IdentityUserId = userID;
@@ -84,7 +85,7 @@ namespace Trash_Collector.Controllers
             {
                 return NotFound();
             }
-            ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", customer.IdentityUserId);
+            
             return ViewBag(customer.Address, customer.TrashDay, customer.BonusDay);
         }
 
