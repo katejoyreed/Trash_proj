@@ -64,12 +64,8 @@ namespace Trash_Collector.Controllers
                 return RedirectToAction(nameof(Index));
             }
            
-            return View(customer);
-            // var userID = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            //customer.IdentityUserId = userID;
-            // _context.Add(customer);
-            // _context.SaveChanges();
-            // return View("Index");
+            return View("Index");
+           
         }
 
         // GET: Customers/Edit/5
