@@ -27,19 +27,16 @@ namespace Trash_Collector.Controllers
         public IActionResult Index()
         {
             var userID = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var employee = _context.Employees.Where(x => x.empID.Equals(userID)).FirstOrDefault();
+            var employee = _context.Employees.Where(x => x.empID.Equals(userID));
             DayOfWeek today = DateTime.Today.DayOfWeek;
+            var trashMan = employee.FirstOrDefault();
+            
+            var todaysPickups = _context.Customers.Where(x => x.TrashDay.Equals(today)).ToList();
             
             
-            var todaysPickups = _context.Customers.Where(x => x.TrashDay.Equals(today) && x.Zip.Equals(employee.ZipCode)).ToList();
-            if (todaysPickups.Count < 0)
-            {
                 return View(todaysPickups);
-            }
-            else 
-            {
-                return View("No pickups scheduled");
-            }
+            
+            
             
         }
 
