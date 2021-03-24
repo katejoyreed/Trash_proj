@@ -20,7 +20,7 @@ namespace Trash_Collector.Models
         public string LastName { get; set; }
 
         [Display(Name = "Zip Code")]
-        public string ZipCode { get; set; }
+        public int ZipCode { get; set; }
         
 
         [ForeignKey("IdentityUser")]

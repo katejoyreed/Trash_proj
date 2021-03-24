@@ -28,12 +28,9 @@ namespace Trash_Collector.Controllers
         public IActionResult Index()
         {
             var userID = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var customer = _context.Customers.Where(c => c.IdentityUserId == userID);
+            var customer = _context.Customers.Where(c => c.IdentityUserId == userID).ToList();
             return View(customer);
-            // var customers = _context.Customers.Include(c => c.IdentityUser);
-            // return View(customers);
-            // var applicationDbContext = _context.Customers.Include(c => c.IdentityUser);
-            // return View(await applicationDbContext.ToListAsync());
+            
         }
 
         // GET: Customers/Details/5
@@ -55,7 +52,7 @@ namespace Trash_Collector.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateAsync([Bind("ID,FirstName,LastName,Address,TrashDay,Balance,IdentityUserId")] Customer customer)
+        public async Task<IActionResult> CreateAsync([Bind("ID,FirstName,LastName,Address,TrashDay,Zip,Balance,IdentityUserId")] Customer customer)
         {
             if (ModelState.IsValid)
             {

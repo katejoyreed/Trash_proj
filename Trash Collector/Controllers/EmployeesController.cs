@@ -32,9 +32,9 @@ namespace Trash_Collector.Controllers
             var trashMan = employee.FirstOrDefault();
             
             var todaysPickups = _context.Customers.Where(x => x.TrashDay.Equals(today)).ToList();
+            var customersForToday = todaysPickups.Where(x => x.Zip.Equals(trashMan.ZipCode));
             
-            
-                return View(todaysPickups);
+                return View(customersForToday);
             
             
             
