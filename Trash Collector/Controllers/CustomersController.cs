@@ -37,7 +37,7 @@ namespace Trash_Collector.Controllers
         public IActionResult Details(int? id)
         {
             var customer = _context.Customers.Find(id);
-            return View(customer.Balance);
+            return View(customer);
         }
 
         // GET: Customers/Create
@@ -56,7 +56,7 @@ namespace Trash_Collector.Controllers
         {
             if (ModelState.IsValid)
             {
-                
+                customer.Balance = 0;
                 _context.Add(customer);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

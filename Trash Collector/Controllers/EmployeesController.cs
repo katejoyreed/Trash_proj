@@ -97,7 +97,7 @@ namespace Trash_Collector.Controllers
                 return NotFound();
             }
             
-            return View(customer.Balance);
+            return View(customer);
         }
 
         // POST: Employees/Edit/5
@@ -116,7 +116,7 @@ namespace Trash_Collector.Controllers
             {
                 try
                 {
-                    _context.Update(customer.Balance);
+                    _context.Update(customer);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -165,6 +165,75 @@ namespace Trash_Collector.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+
+        //Edit Get
+        public async Task<IActionResult> ChangeDay(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var employee = await _context.Employees.FindAsync(id);
+            if (employee == null)
+            {
+                return NotFound();
+            }
+
+            return View(employee);
+        }
+        //Edit Day for Filter
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ChangeDay(int? id, Employee employee)
+        {
+            if (id != employee.empID)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(employee);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!EmployeeExists(employee.empID))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+
+            return View("Filter");
+        }
+        //Filter like Index w/ new day
+        public IActionResult Filter()
+        {
+            var userID = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var employee = _context.Employees.Where(x => x.empID.Equals(userID));
+            var trashMan = employee.FirstOrDefault();
+            DayOfWeek dayToView = trashMan.DayToView;
+
+            var todaysPickups = _context.Customers.Where(x => x.TrashDay.Equals(dayToView)).ToList();
+            var customersForToday = todaysPickups.Where(x => x.Zip.Equals(trashMan.ZipCode));
+
+            return View(customersForToday);
+
+
+
+        }
+
+
+
 
         private bool EmployeeExists(int id)
         {

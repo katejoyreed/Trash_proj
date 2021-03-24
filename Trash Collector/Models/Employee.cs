@@ -21,6 +21,8 @@ namespace Trash_Collector.Models
 
         [Display(Name = "Zip Code")]
         public int ZipCode { get; set; }
+
+        public DayOfWeek DayToView { get; set; }
         
 
         [ForeignKey("IdentityUser")]
