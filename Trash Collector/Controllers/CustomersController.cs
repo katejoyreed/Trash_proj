@@ -27,7 +27,7 @@ namespace Trash_Collector.Controllers
         public IActionResult Index()
         {
             var userID = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var customer = _context.Customers.Where(c => c.IdentityUserId == userID).FirstOrDefault();
+            var customer = _context.Customers.Where(c => c.IdentityUserId == userID);
             return View(customer);
             // var customers = _context.Customers.Include(c => c.IdentityUser);
             // return View(customers);
