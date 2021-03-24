@@ -23,14 +23,14 @@ namespace Trash_Collector.Models
 
         public string Address { get; set; }
 
-        public int Zip { get; set; }
+        public string Zip { get; set; }
 
         [Display(Name = "Trash Day")]
         public  DayOfWeek TrashDay { get; set; }
          
         
         [Display(Name = "Balance Due")]
-        public int Balance { get; set; }
+        public int ? Balance { get; set; }
 
         [Display(Name = "Additional Collection Day")]
         public DayOfWeek ? BonusDay { get; set; }
