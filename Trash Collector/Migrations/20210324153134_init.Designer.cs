@@ -10,7 +10,7 @@ using Trash_Collector.Data;
 namespace Trash_Collector.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210322180748_init")]
+    [Migration("20210324153134_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -50,22 +50,22 @@ namespace Trash_Collector.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "fce8b403-6c43-47cc-a76e-1576ddceb484",
-                            ConcurrencyStamp = "ea94d541-0c19-41e4-9a57-900136fd4e18",
+                            Id = "02ddc9e7-1842-411a-aaa9-4ee8152d49ea",
+                            ConcurrencyStamp = "bcba4e9b-ed9a-4af7-a02c-65bee5519bfa",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "e724f9bb-ee70-4b27-a7a9-043b4771f5d8",
-                            ConcurrencyStamp = "ea123bfa-89f7-4233-8bdb-69c7527ee3e1",
+                            Id = "0d773e6b-b515-46ee-b44c-4c28b1b268dd",
+                            ConcurrencyStamp = "26842c59-1475-4f5b-840c-4001e4b07d3d",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         },
                         new
                         {
-                            Id = "505b2ef4-9a78-45f1-9d2e-5b98a3dbe672",
-                            ConcurrencyStamp = "8672a7cf-e16a-48d8-b2a4-86c6a1235a5d",
+                            Id = "8124784d-0ff9-433d-b1f6-96404fadc58b",
+                            ConcurrencyStamp = "c05123d1-3c85-4417-a806-a12c3ce57ee1",
                             Name = "Employee",
                             NormalizedName = "EMPLOYEE"
                         });
@@ -250,7 +250,7 @@ namespace Trash_Collector.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Balance")
+                    b.Property<int?>("Balance")
                         .HasColumnType("int");
 
                     b.Property<int?>("BonusDay")
@@ -268,8 +268,8 @@ namespace Trash_Collector.Migrations
                     b.Property<int>("TrashDay")
                         .HasColumnType("int");
 
-                    b.Property<int>("Zip")
-                        .HasColumnType("int");
+                    b.Property<string>("Zip")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
 
@@ -294,8 +294,8 @@ namespace Trash_Collector.Migrations
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ZipCode")
-                        .HasColumnType("int");
+                    b.Property<string>("ZipCode")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("empID");
 

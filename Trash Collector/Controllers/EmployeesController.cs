@@ -29,8 +29,18 @@ namespace Trash_Collector.Controllers
             var userID = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var employee = _context.Employees.Where(x => x.empID.Equals(userID)).FirstOrDefault();
             DayOfWeek today = DateTime.Today.DayOfWeek;
+            
+            
             var todaysPickups = _context.Customers.Where(x => x.TrashDay.Equals(today) && x.Zip.Equals(employee.ZipCode)).ToList();
-            return View(todaysPickups);
+            if (todaysPickups.Count < 0)
+            {
+                return View(todaysPickups);
+            }
+            else 
+            {
+                return View("No pickups scheduled");
+            }
+            
         }
 
         // GET: Employees/Details/5
