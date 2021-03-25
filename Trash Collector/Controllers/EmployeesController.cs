@@ -27,7 +27,7 @@ namespace Trash_Collector.Controllers
         public IActionResult Index()
         {
             var userID = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var employee = _context.Employees.Where(x => x.empID.Equals(userID));
+            var employee = _context.Employees.Where(emp => emp.empID.Equals(userID));
             DayOfWeek today = DateTime.Today.DayOfWeek;
             var trashMan = employee.FirstOrDefault();
             
