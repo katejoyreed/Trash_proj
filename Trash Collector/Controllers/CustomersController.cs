@@ -43,7 +43,7 @@ namespace Trash_Collector.Controllers
         // GET: Customers/Create
         public IActionResult Create()
         {
-            ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id");
+           // ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id");
             return View();
         }
 
@@ -56,6 +56,7 @@ namespace Trash_Collector.Controllers
         {
             if (ModelState.IsValid)
             {
+                customer.IdentityUserId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
                 customer.Balance = 0;
                 _context.Add(customer);
                 await _context.SaveChangesAsync();
@@ -80,7 +81,7 @@ namespace Trash_Collector.Controllers
                 return NotFound();
             }
             
-            return ViewBag(customer.Address, customer.TrashDay, customer.BonusDay);
+            return View(customer);
         }
 
         // POST: Customers/Edit/5
@@ -88,8 +89,9 @@ namespace Trash_Collector.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, [Bind("ID,FirstName,LastName,Address,TrashDay,Balance,IdentityUserId")] Customer customer)
+        public IActionResult Edit(int id, [Bind("ID,FirstName,LastName,Address,Zip,TrashDay,Balance,BonusDay,IdentityUserId")] Customer customer)
         {
+            
             _context.Update(customer);
             _context.SaveChanges();
             return View("Index");

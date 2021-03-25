@@ -10,8 +10,8 @@ using Trash_Collector.Data;
 namespace Trash_Collector.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210324182948_updatedmodel")]
-    partial class updatedmodel
+    [Migration("20210325000500_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -50,22 +50,22 @@ namespace Trash_Collector.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "81ac010a-669f-40e7-8107-e5d38606dd62",
-                            ConcurrencyStamp = "e396657e-cf61-4502-a1e6-eb11aa213a52",
+                            Id = "af3b62ac-d8c5-4c79-b0a2-f91888caabbf",
+                            ConcurrencyStamp = "252b0a94-835c-4114-8349-a3f59d8a341d",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "e13f565c-aeb1-4b35-9b4f-d08260b1492d",
-                            ConcurrencyStamp = "79cfbeb0-b460-4603-a81f-92a2b06e64c4",
+                            Id = "17534339-5ff3-46c8-9b24-b694d7e6f224",
+                            ConcurrencyStamp = "91345a57-8816-4f29-8bda-b0abb120642b",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         },
                         new
                         {
-                            Id = "fd9d9767-ef42-4072-871e-69e72ee5adbe",
-                            ConcurrencyStamp = "be6127f4-a5ba-414f-b9a8-f336ad659e52",
+                            Id = "8d37afa1-7927-4f95-920a-44e949c8b7c2",
+                            ConcurrencyStamp = "19a765ae-2d30-49dd-9c50-e5d7f1094061",
                             Name = "Employee",
                             NormalizedName = "EMPLOYEE"
                         });
@@ -284,6 +284,9 @@ namespace Trash_Collector.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("DayToView")
+                        .HasColumnType("int");
 
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");

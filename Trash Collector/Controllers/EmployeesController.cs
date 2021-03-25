@@ -62,7 +62,7 @@ namespace Trash_Collector.Controllers
         // GET: Employees/Create
         public IActionResult Create()
         {
-            ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id");
+            //ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id");
             return View();
         }
 
@@ -75,6 +75,7 @@ namespace Trash_Collector.Controllers
         {
             if (ModelState.IsValid)
             {
+                employee.IdentityUserId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
                 _context.Add(employee);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

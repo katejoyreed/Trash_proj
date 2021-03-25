@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace Trash_Collector.Models
 {
+    
     public class Customer
     {
         [Key]
@@ -36,6 +37,7 @@ namespace Trash_Collector.Models
         public DayOfWeek ? BonusDay { get; set; }
 
         [ForeignKey("IdentityUser")]
+        
         public string IdentityUserId { get; set; }
         public IdentityUser IdentityUser { get; set; }
 
