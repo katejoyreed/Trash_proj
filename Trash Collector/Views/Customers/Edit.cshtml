@@ -15,7 +15,21 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
 
-
+            <div class="form-group" style="visibility:hidden;height:0px">
+                @Html.EditorFor(x => x.FirstName)
+                @Html.ValidationMessageFor(x => x.FirstName)
+                
+            </div>
+            <div class="form-group" style="visibility:hidden;height:0px">
+                <label asp-for="LastName" class="control-label"></label>
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group" style="visibility:hidden;height:0px">
+                <label asp-for="Balance" class="control-label"></label>
+                <input asp-for="Balance" class="form-control" />
+                <span asp-validation-for="Balance" class="text-danger"></span>
+            </div>
             <div class="form-group">
                 <label asp-for="Address" class="control-label"></label>
                 <input asp-for="Address" class="form-control" />
@@ -33,7 +47,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="BonusDay" class="control-label"></label>
-                <select asp-for="BonusDay" class="form-control" asp-items="Html.GetEnumSelectList<DayOfWeek>()"><option value="">Select</option></select>
+                <select asp-for="BonusDay" class="form-control" asp-items="Html.GetEnumSelectList<DayOfWeek>()"><option value="">None</option></select>
                 <span asp-validation-for="BonusDay" class="text-danger"></span>
             </div>
 

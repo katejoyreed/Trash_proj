@@ -91,7 +91,7 @@ namespace Trash_Collector.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(int id, [Bind("ID,FirstName,LastName,Address,Zip,TrashDay,Balance,BonusDay,IdentityUserId")] Customer customer)
         {
-            
+            customer.IdentityUserId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             _context.Update(customer);
             _context.SaveChanges();
             return View("Index");
