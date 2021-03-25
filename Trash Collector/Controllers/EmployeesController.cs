@@ -27,12 +27,12 @@ namespace Trash_Collector.Controllers
         public IActionResult Index()
         {
             var userID = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var employee = _context.Employees.Where(emp => emp.empID.Equals(userID));
+            var employee = _context.Employees.Where(emp => emp.IdentityUserId.Equals(userID)).Select(x => x).FirstOrDefault();
             DayOfWeek today = DateTime.Today.DayOfWeek;
-            var trashMan = employee.FirstOrDefault();
+            
             
             var todaysPickups = _context.Customers.Where(x => x.TrashDay.Equals(today)).ToList();
-            var customersForToday = todaysPickups.Where(x => x.Zip.Equals(trashMan.ZipCode));
+            var customersForToday = todaysPickups.Where(x => x.Zip.Equals(employee.ZipCode));
             
                 return View(customersForToday);
             
