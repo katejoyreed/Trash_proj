@@ -13,13 +13,47 @@
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            
+            <div class="form-group" style="visibility:hidden;height:0px">
+                @Html.EditorFor(x => x.FirstName)
+                @Html.ValidationMessageFor(x => x.FirstName)
+
+            </div>
+            <div class="form-group" style="visibility:hidden;height:0px">
+                <label asp-for="LastName" class="control-label"></label>
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group" style="visibility:hidden;height:0px">
+                <label asp-for="Address" class="control-label"></label>
+                <input asp-for="Address" class="form-control" />
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+            <div class="form-group" style="visibility:hidden;height:0px">
+                <label asp-for="TrashDay" class="control-label"></label>
+                <input asp-for="TrashDay" class="form-control" />
+                <span asp-validation-for="TrashDay" class="text-danger"></span>
+            </div>
+            <div class="form-group" style="visibility:hidden;height:0px">
+                <label asp-for="Zip" class="control-label"></label>
+                <input asp-for="Zip" class="form-control" />
+                <span asp-validation-for="Zip" class="text-danger"></span>
+            </div>
+            <div class="form-group" style="visibility:hidden;height:0px">
+                <label asp-for="BonusDay" class="control-label"></label>
+                <input asp-for="BonusDay" class="form-control" />
+                <span asp-validation-for="BonusDay" class="text-danger"></span>
+            </div>
+            <div class="form-group" style="visibility:hidden;height:0px">
+                <label asp-for="IdentityUserId" class="control-label"></label>
+                <input asp-for="IdentityUserId" class="form-control" />
+                <span asp-validation-for="IdentityUserId" class="text-danger"></span>
+            </div>
             <div class="form-group">
                 <label asp-for="Balance" class="control-label"></label>
                 <input asp-for="Balance" class="form-control" />
                 <span asp-validation-for="Balance" class="text-danger"></span>
             </div>
-            
+
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
